@@ -5,7 +5,7 @@
     'author': 'Sunflower IT',
     'license': 'AGPL-3',
     'category': 'Others',
-    'summary': 'Bill of Material Selection Reference',
+    'summary': 'Specify kit items that replace others',
     'depends': [
         'mrp',
     ],
