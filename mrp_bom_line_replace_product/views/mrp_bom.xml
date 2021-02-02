@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="mrp_bom_form_view" model="ir.ui.view">
+            <field name="name">mrp.bom.form</field>
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='bom_line_ids']//field[@name='product_uom_qty']" position="after">
+                    <field name="replace_product_id" attrs="{'invisible': [('type', '!=', 'phantom')]}"/>
+                    <field name="replace_product_qty" attrs="{'invisible': [('type', '!=', 'phantom')]}"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>
