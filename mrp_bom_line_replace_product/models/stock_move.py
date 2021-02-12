@@ -30,4 +30,5 @@ class StockMove(models.Model):
         for product, qty in replacements:
             matches = moves.filtered(lambda m: m.product_id == product and m.product_qty >= qty)
             matches.action_cancel()
+            matches.unlink()
         return moves
