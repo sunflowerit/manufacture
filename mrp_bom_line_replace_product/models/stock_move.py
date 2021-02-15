@@ -25,10 +25,13 @@ class StockMove(models.Model):
     @api.multi
     def action_confirm(self):
         moves = super(StockMove, self).action_confirm()
-        replacements = moves.mapped(
-            lambda m: (m.replace_product_id, m.replace_product_qty))
+        replacements = moves.filtered('replace_product_id').mapped(
+            lambda m: (m.replace_product_id, m.replace_product_qty or 1.0)
+        )
         for product, qty in replacements:
-            matches = moves.filtered(lambda m: m.product_id == product and m.product_qty >= qty)
-            matches.action_cancel()
-            matches.unlink()
+            match = moves.filtered(lambda m: m.product_id == product and m.product_qty == qty)[:1]
+            if match:
+                match.action_cancel()
+                match.unlink()
+                moves -= match
         return moves
